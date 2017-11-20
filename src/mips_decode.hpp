@@ -23,6 +23,7 @@ typedef struct instruction_t{
 		cout <<  "dest: " << dest << endl;
 		cout <<  "shift: " << shift << endl;
 		cout <<  "funct: " << funct << endl;
+		cout <<  "immediate: " << imm << endl;
 		cout <<  "memory: " << mem << endl;
 	}
 
