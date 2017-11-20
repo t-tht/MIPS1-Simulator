@@ -16,7 +16,7 @@ typedef struct instruction_t{
 	uint32_t mem;		// for J type instructions
 
 	void debug(){
-		cout <<  "input: " << hex << input << endl;
+		cout <<  "input: " << input << endl;
 		cout <<  "opcode: " << opcode << endl;
 		cout <<  "source1: " << source1 << endl;
 		cout <<  "source2: " << source2 << endl;
