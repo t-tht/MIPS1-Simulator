@@ -1,5 +1,5 @@
-#ifndef mips_decode_H
-#define mips_decode_H
+#ifndef mips_inst_decode_H
+#define mips_inst_decode_H
 
 using namespace std;
 
@@ -16,6 +16,7 @@ typedef struct instruction_t{
 	uint32_t mem;		// for J type instructions
 
 	void debug(){
+		//debugging function
 		cout <<  "input: " << input << endl;
 		cout <<  "opcode: " << opcode << endl;
 		cout <<  "source1: " << source1 << endl;
@@ -36,11 +37,11 @@ void r_decode(instruction_t& current){
 	cout << "r_decode" << endl << endl;
 	current.source1 = (current.input >> 21) & 0x1F;
 	current.source2 = (current.input >> 16) & 0x1F;
-	current.dest = (current.input >> 11) & 0x1F;
-	current.shift = (current.input >> 6) & 0x1F;
-	current.funct = (current.input) & 0x3F;
-	current.imm = 0;
-	current.mem = 0;
+	current.dest    = (current.input >> 11) & 0x1F;
+	current.shift   = (current.input >> 6) & 0x1F;
+	current.funct   = (current.input) & 0x3F;
+	current.imm     = 0;
+	current.mem     = 0;
 }
 
 void i_decode(instruction_t& current){
@@ -50,11 +51,11 @@ void i_decode(instruction_t& current){
 	cout << "i_decode" << endl << endl;
 	current.source1 = (current.input >> 21) & 0x1F;
 	current.source2 = 0;
-	current.dest = (current.input >> 16) & 0x1F;
-	current.shift = 0;
-	current.funct = 0;
-	current.imm = (current.input) & 0xFFFF;
-	current.mem = 0;
+	current.dest    = (current.input >> 16) & 0x1F;
+	current.shift   = 0;
+	current.funct   = 0;
+	current.imm     = (current.input) & 0xFFFF;
+	current.mem     = 0;
 }
 
 void j_decode(instruction_t& current){
@@ -64,11 +65,11 @@ void j_decode(instruction_t& current){
 	cout << "j_decode" << endl << endl;
 	current.source1 = 0;
 	current.source2 = 0;
-	current.dest = 0;
-	current.shift = 0;
-	current.funct = 0;
-	current.imm = 0;
-	current.mem = (current.input) & 0x3FFFFFF;
+	current.dest    = 0;
+	current.shift   = 0;
+	current.funct   = 0;
+	current.imm     = 0;
+	current.mem     = (current.input) & 0x3FFFFFF;
 }
 
 void opcode_error(){

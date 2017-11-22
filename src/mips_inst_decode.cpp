@@ -1,5 +1,5 @@
 #include<iostream>
-#include"mips_decode.hpp"
+#include"mips_inst_decode.hpp"
 
 using namespace std;
 
