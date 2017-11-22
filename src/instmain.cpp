@@ -9,7 +9,7 @@ int main(){
 	instruction_t current;
 	do{
 		cout << "________________________________________" << endl;
-		cout << endl << "enter the instruction code" <<endl;
+		cout << endl << "enter the instruction code:	";
 		cin >>  hex >> current.input;
 		
 		instruction_decode(current);
