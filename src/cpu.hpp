@@ -2,22 +2,22 @@
 	CONTAINS CPU FUNCTIONS
 */
 
-#ifndef mips_cpu_H
-#define mips_cpu_H
+#ifndef cpu_H
+#define cpu_H
 
 #include<iostream>
-#include"mips_error.hpp"
+#include"error.hpp"
 
 using namespace std;
 
-struct cpu_state{
+struct cpu_reg{
 	uint32_t pc;
 	uint32_t npc;
 	uint32_t reg[32];
 };
 
-cpu_state current;
-error_type mips_error;
+cpu_reg current;
+state mips_cpu;
 
 void cpu_start(){
 	//create a cpu with inital conditions
@@ -42,5 +42,7 @@ void cpu_exit(){
 	cout << "Exit Failure" << endl;
 	exit(EXIT_FAILURE);
 }
+
+
 
 #endif

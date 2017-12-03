@@ -1,36 +1,23 @@
-#ifndef mips_inst_decode_H
-#define mips_inst_decode_H
+#include<iostream>
+#include"inst_decode.hpp"
 
 using namespace std;
 
-typedef struct instruction_t{
-	//define a struct for instruction that includes the different components of an instruction input
-	uint32_t input;
-	uint32_t opcode;
-	uint32_t source1;
-	uint32_t source2;
-	uint32_t dest;
-	uint32_t shift;
-	uint32_t funct;
-	uint32_t imm;		//immediate constants are for I type insturctions only
-	uint32_t mem;		// for J type instructions
+void instruction_t::debug(){
+	//debugging function
+	cout <<  "input: " << input << endl;
+	cout <<  "opcode: " << opcode << endl;
+	cout <<  "source1: " << source1 << endl;
+	cout <<  "source2: " << source2 << endl;
+	cout <<  "dest: " << dest << endl;
+	cout <<  "shift: " << shift << endl;
+	cout <<  "funct: " << funct << endl;
+	cout <<  "immediate: " << imm << endl;
+	cout <<  "memory: " << mem << endl;
+}
 
-	void debug(){
-		//debugging function
-		cout <<  "input: " << input << endl;
-		cout <<  "opcode: " << opcode << endl;
-		cout <<  "source1: " << source1 << endl;
-		cout <<  "source2: " << source2 << endl;
-		cout <<  "dest: " << dest << endl;
-		cout <<  "shift: " << shift << endl;
-		cout <<  "funct: " << funct << endl;
-		cout <<  "immediate: " << imm << endl;
-		cout <<  "memory: " << mem << endl;
-	}
 
-}instruction_t;
-
-void r_decode(instruction_t& current){			
+void decode_rtype(instruction_t& current){			
 	/*decoding for r type instructions
 	opcode[31-26], source1[25-21], source2[20-16], dest[15-11], shift[10-6], funct[5-0]
 	*/
@@ -44,7 +31,7 @@ void r_decode(instruction_t& current){
 	current.mem     = 0;
 }
 
-void i_decode(instruction_t& current){
+void decode_itype(instruction_t& current){
 	/*decoding for i type instructions
 	opcode[31-26], source1[25-21], dest[20-16], immediate[15-0]
 	*/
@@ -58,7 +45,7 @@ void i_decode(instruction_t& current){
 	current.mem     = 0;
 }
 
-void j_decode(instruction_t& current){
+void decode_jtype(instruction_t& current){
 	/*decoding for j type instructions
 	opcode[31-26], memory[25-0]
 	*/
@@ -71,8 +58,3 @@ void j_decode(instruction_t& current){
 	current.imm     = 0;
 	current.mem     = (current.input) & 0x3FFFFFF;
 }
-
-void opcode_error(){
-	cout << "error" << endl;
-}
-#endif

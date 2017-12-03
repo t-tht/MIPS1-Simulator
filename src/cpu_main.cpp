@@ -1,5 +1,5 @@
 #include<iostream>
-#include"mips_cpu.hpp"
+#include"cpu.hpp"
 
 using namespace std;
 

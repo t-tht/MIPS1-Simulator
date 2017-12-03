@@ -1,6 +1,6 @@
 #include<iostream>
 #include<stdlib.h>
-#include"mips_inst_decode.cpp"
+#include"inst_decode.cpp"
 
 using namespace std;
 
