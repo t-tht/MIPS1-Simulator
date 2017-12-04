@@ -1,6 +1,6 @@
 #include<iostream>
 #include<stdlib.h>
-#include"inst_decode.cpp"
+#include"inst_exe.cpp"
 
 using namespace std;
 
@@ -12,7 +12,7 @@ int main(){
 		cout << endl << "enter the instruction code:	";
 		cin >>  hex >> current.input;
 		
-		instruction_decode(current);
+		execute_inst_type(current);
 	
 	}
 	while(1);

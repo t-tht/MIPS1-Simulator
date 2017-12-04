@@ -12,6 +12,4 @@ void decode_jtype(instruction_t& current);
 
 void instruction_decode(instruction_t current);
 
-enum inst_type {R, I, J};
-
 #endif

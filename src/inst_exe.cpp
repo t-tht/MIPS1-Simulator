@@ -1,6 +1,6 @@
 #include<iostream>
 #include"inst_exe.hpp"
-#include"inst_decide.cpp"
+#include"inst_decode.cpp"
 
 using namespace std;
 
@@ -30,6 +30,8 @@ itype inst_type(instruction_t& current) {
 //select the type of the instruction
 void execute_inst_type(instruction_t& current) {
 	
+	current.debug();
+	
 	itype current_type = inst_type(current);
 
 	switch(current_type) {
@@ -55,47 +57,54 @@ void execute_inst_type(instruction_t& current) {
 void execute_rtype(instruction_t& current) {
 	cout << "rtype success" << endl;
 	decode_rtype(current);
+	
+	uint32_t s1 = current.source1;
+	uint32_t s2 = current.source2;
+	uint32_t dest = current.dest;
+	uint32_t shift = current.shift;
+	
 	switch(current.funct) {
-		case:0b100000:
+		case 0b100000:
 		//ADD
+		cpu_write_reg(dest, s1 + s2);
 		break;
-		case:0b100001:
+		case 0b100001:
 		//ADDU
 		break;
-		case:0b100100:
+		case 0b100100:
 		//AND
 		break;
-		case:0b011010:
+		case 0b011010:
 		//DIV
 		break;
-		case:0b011011:
+		case 0b011011:
 		//DIVU
 		break;
-		case:0b001001:
+		case 0b001001:
 		//JALR
 		break;
-		case:0b001000:
+		case 0b001000:
 		//JR
 		break;
-		case:0b010000:
+		case 0b010000:
 		//MFHI
 		break;
-		case:0b010010:
+		case 0b010010:
 		//MFLO
 		break;
-		case:0b010001:
+		case 0b010001:
 		//MTHI
 		break;
-		case:0b010011:
+		case 0b010011:
 		//MTLO
 		break;
-		case:0b011000:
+		case 0b011000:
 		//MULT
 		break;
-		case:0b011001:
+		case 0b011001:
 		//MULTU
 		break;
-		case 0b:100101:
+		case 0b100101:
 		//OR
 		break;
 		case 0b000000:
@@ -153,22 +162,22 @@ void execute_itype(instruction_t& current) {
 		case 0b000100:
 		//BEQ
 		break;
-		case 0b:
+		case 0b0000000: //placeholder
 		//BGEZ
 		break;
-		case 0b:
+		case 0b0000000: //placeholder
 		//BGEZAL
 		break;
-		case 0b:
+		case 0b0000000: //placeholder
 		//BGTZ
 		break;
-		case 0b:
+		case 0b0000000: //placeholder
 		//BLEZ
 		break;
-		case 0b:
+		case 0b0000000: //placeholder
 		//BLTZ
 		break;
-		case 0b:
+		case 0b0000000: //placeholder
 		//BLTZAL
 		break;
 		case 0b000101:
@@ -186,16 +195,16 @@ void execute_itype(instruction_t& current) {
 		case 0b100101:
 		//LHU
 		break;
-		case 0b:
+		case 0b0000000: //placeholder
 		//LUI
 		break;
 		case 0b100011:
 		//LW
 		break;
-		case 0b:100010:
+		case 0b100010:
 		//LWL
 		break;
-		case 0b:100110:
+		case 0b100110:
 		//LWR
 		break;
 		case 0b001101:
@@ -204,7 +213,7 @@ void execute_itype(instruction_t& current) {
 		case 0b101000:
 		//SB
 		break;
-		case 0b:101001:
+		case 0b101001:
 		//SH
 		break;
 		case 0b001010:
@@ -216,7 +225,7 @@ void execute_itype(instruction_t& current) {
 		case 0b101001:
 		//SW
 		break;
-		case 0b:001110:
+		case 0b001110:
 		//XORI
 		break;		
 	}
