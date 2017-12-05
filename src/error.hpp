@@ -5,7 +5,7 @@
 
 enum err{
 	
-	success = 0;
+	success = 0,
 	
 	//errors
 	err_arg = 1,

@@ -1,6 +1,8 @@
 #ifndef inst_decode_H
 #define inst_decode_H
+
 #include"inst_t.hpp"
+#include"error.hpp"
 
 err inst_decode(instruction_t& instruction);
 

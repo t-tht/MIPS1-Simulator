@@ -1,17 +1,21 @@
 #include"memory.hpp"
+#define MEMSIZE 4294967296
 
-memarr[]
+uint8_t mem[MEMSIZE];
 
-err mem_create() {
+struct mem_t{
+	uint8_t value;
+	uint32_t address;
+};
+
+err mem_read(index, content, memorypointer) {
 	
 }
 
-err mem_read(index, value) {
-	
-}
 
-err mem_write(index, value) {
-	
+
+err mem_write(index, content, state) {
+	state.mem
 }
 
 err mem_clear(index) {

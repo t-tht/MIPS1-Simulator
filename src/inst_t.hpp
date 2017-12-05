@@ -22,16 +22,16 @@ struct instruction_t {
 
 void instruction_t::debug(){
 	//debugging function
-	cout <<  "input: " << input << endl;
-	cout << "type: " << type << endl;
-	cout <<  "opcode: " << opcode << endl;
-	cout <<  "source1: " << source1 << endl;
-	cout <<  "source2: " << source2 << endl;
-	cout <<  "dest: " << dest << endl;
-	cout <<  "shift: " << shift << endl;
-	cout <<  "funct: " << funct << endl;
-	cout <<  "immediate: " << imm << endl;
-	cout <<  "memory: " << mem << endl;
+	std::cout <<  "input: " << input << std::endl;
+	std::cout << "type: " << type << std::endl;
+	std::cout <<  "opcode: " << opcode << std::endl;
+	std::cout <<  "source1: " << source1 << std::endl;
+	std::cout <<  "source2: " << source2 << std::endl;
+	std::cout <<  "dest: " << dest << std::endl;
+	std::cout <<  "shift: " << shift << std::endl;
+	std::cout <<  "funct: " << funct << std::endl;
+	std::cout <<  "immediate: " << imm << std::endl;
+	std::cout <<  "memory: " << mem << std::endl;
 }
 
 

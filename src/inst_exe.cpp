@@ -4,6 +4,7 @@
 #include<iostream>
 #include"inst_exe.hpp"
 #include"inst_decode.cpp"
+#include"cpu.hpp"
 
 using namespace std;
 
@@ -31,19 +32,17 @@ err inst_exe(instruction_t& instruction) {
 
 
 //select rtype instruction
-void exe_rtype(instruction_t& instruction) {
-	cout << "rtype success" << endl;
-	decode_rtype(instruction);
-	
+void exe_rtype(cpu_state_t current_state, instruction_t& instruction) {
 	uint32_t s1 = instruction.source1;
 	uint32_t s2 = instruction.source2;
 	uint32_t dest = instruction.dest;
 	uint32_t shift = instruction.shift;
 	
+	
 	switch(instruction.funct) {
 		case 0b100000:
 		//ADD
-		cpu_write_reg(dest, s1 + s2);
+		cpu_write_reg(current_state, dest, s1 + s2);
 		break;
 		case 0b100001:
 		//ADDU
@@ -128,8 +127,6 @@ void exe_rtype(instruction_t& instruction) {
 
 //select itype instruction
 void exe_itype(instruction_t& instruction) {
-	cout << "itype success" << endl;
-	decode_itype(instruction);
 	switch(instruction.opcode) {
 		case 0b001000:
 		//ADDI
@@ -218,9 +215,6 @@ void exe_itype(instruction_t& instruction) {
 
 //select jtype instruction
 void exe_jtype(instruction_t& instruction) {
-	cout << "jtype success" << endl;
-	decode_jtype(instruction);
-	
 	switch(instruction.opcode) {
 		case 0b000010:
 		//J

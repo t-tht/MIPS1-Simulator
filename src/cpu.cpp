@@ -25,10 +25,10 @@ void cpu_start(){
 	}
 }
 
-//increments pc counter
+//sets pc counter
 err cpu_set_pc(cpu_state_t& current_state, uint32_t pc){
-		current_state.pc = pc;
-		current_state.npc = current_state.pc + 4;
+	current_state.pc = pc;
+	current_state.npc = current_state.pc + 4;
 	return success;
 }
 
@@ -68,8 +68,3 @@ err cpu_run(cpu_state_t state){
 	return error;
 }
 
-
-void cpu_exit(){
-	std::cout << "Exit Failure" << std::endl;
-	exit(EXIT_FAILURE);
-}

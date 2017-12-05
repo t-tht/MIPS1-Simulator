@@ -1,6 +1,8 @@
 #ifndef inst_exe_H
 #define inst_exe_H
+
 #include"inst_t.hpp"
+#include"error.hpp"
 
 err inst_exe(instruction_t& instruction);
 
