@@ -1,3 +1,6 @@
+/*
+		contains functions that execute the input instructions
+*/
 #include<iostream>
 #include"inst_exe.hpp"
 #include"inst_decode.cpp"
@@ -5,48 +8,22 @@
 using namespace std;
 
 
-//find the type of instruction
-itype inst_type(instruction_t& current) {
-
-	current.opcode = (current.input >> 26) & 0x3F ;
-	
-	if(current.opcode == 0){
-		return R;
-	}
-	else if(current.opcode == 3 || current.opcode == 4){
-		return J;
-	}
-	else if(current.opcode != 0 || current.opcode != 3 || current.opcode != 4){
-		return I;
-	}
-}
-
-
-
-
-
-
-
 //select the type of the instruction
-void execute_inst_type(instruction_t& current) {
-	
-	current.debug();
-	
-	itype current_type = inst_type(current);
-
-	switch(current_type) {
+err inst_exe(instruction_t& instruction) {
+	switch(instruction.type) {
 		case R:
-		execute_rtype(current);
+		exe_rtype(instruction);
 		break;
 		
 		case I:
-		execute_itype(current);
+		exe_itype(instruction);
 		break;
 		
 		case J:
-		execute_jtype(current);
+		exe_jtype(instruction);
 		break;
 	}
+	return success;
 }
 
 
@@ -54,16 +31,16 @@ void execute_inst_type(instruction_t& current) {
 
 
 //select rtype instruction
-void execute_rtype(instruction_t& current) {
+void exe_rtype(instruction_t& instruction) {
 	cout << "rtype success" << endl;
-	decode_rtype(current);
+	decode_rtype(instruction);
 	
-	uint32_t s1 = current.source1;
-	uint32_t s2 = current.source2;
-	uint32_t dest = current.dest;
-	uint32_t shift = current.shift;
+	uint32_t s1 = instruction.source1;
+	uint32_t s2 = instruction.source2;
+	uint32_t dest = instruction.dest;
+	uint32_t shift = instruction.shift;
 	
-	switch(current.funct) {
+	switch(instruction.funct) {
 		case 0b100000:
 		//ADD
 		cpu_write_reg(dest, s1 + s2);
@@ -141,15 +118,19 @@ void execute_rtype(instruction_t& current) {
 		//XOR
 		break;
 		
+		default:
+		std::cout<< "invalid R type instruction" << std::endl;
+		break;
+		
 	};
 	
 }
 
 //select itype instruction
-void execute_itype(instruction_t& current) {
+void exe_itype(instruction_t& instruction) {
 	cout << "itype success" << endl;
-	decode_itype(current);
-	switch(current.opcode) {
+	decode_itype(instruction);
+	switch(instruction.opcode) {
 		case 0b001000:
 		//ADDI
 		break;
@@ -228,20 +209,28 @@ void execute_itype(instruction_t& current) {
 		case 0b001110:
 		//XORI
 		break;		
+		
+		default:
+		std::cout<< "invalid I type instruction" << std::endl;
+		break;
 	}
 }
 
 //select jtype instruction
-void execute_jtype(instruction_t& current) {
+void exe_jtype(instruction_t& instruction) {
 	cout << "jtype success" << endl;
-	decode_jtype(current);
+	decode_jtype(instruction);
 	
-	switch(current.opcode) {
+	switch(instruction.opcode) {
 		case 0b000010:
 		//J
 		break;
 		case 0b000011:
 		//JAL
+		break;
+		
+		default:
+		std::cout<< "invalid J type instruction" << std::endl;
 		break;
 	}
 }
