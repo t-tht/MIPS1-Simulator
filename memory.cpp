@@ -1,24 +1,42 @@
-#include <stdio.h>
 #include <iostream>
 #include <fstream>
-
-#define MEM_size 4294967296
-
+#include <cstring>
+#include <stdint.h>
+#include <stdlib.h>
+#define mem_size 83886092
+#define size 3
+ 
 
 using namespace std;
 
-int main(){
+int main(int argc, char *argv[]){
 	
-	//char memory [MEM_size];
-	char* memory  = new char[MEM_size];
-	ifstream input( "test.bin", ios::in |ios::binary );
-	cout<<input.tellg()<<endl;
-	input.read(memory, MEM_size);
-	cout<<input.tellg()<<endl;
+		
+	//char* in_ints  = new char[100]; // allocate memory to avoid segmentation fault
 
-	//for (int i = MEM_size-1; i>=0; i--){
-	//	cout<<memory[i]<<endl;
-	//}
 	
+	
+	
+	
+	ifstream 	r("test.bin", ios::binary);
+	int i;
+	//uint8_t in_ints[100]; works but obviously to small
+	//uint8_t *in_ints = new uint8_t[mem_size]; doesnt work
+	//uint8_t *in_ints = (uint8_t*)malloc(sizeof(uint8_t) * mem_size); doesn't work
+ 	//uint8_t in_ints[mem_size]; doesn't work 
+	r.read((char*)&in_ints, sizeof(in_ints)); //takeas in binary file full of 0xFF
+	
+	
+	for(i = 0;i < 10;i++) {  // test to see if array if full of 0xFF
+		if(in_ints[i]==0xff){
+			cout <<"yes" << " ";
+		}else if(in_ints[i]!=0xff){
+			cout<<"no"<<" ";
+		}
+	}
+	cout << endl;
+
 	return 0;
-};
+		
+}
+			
