@@ -23,7 +23,7 @@ struct instruction_t {
 void instruction_t::debug(){
 	//debugging function
 	std::cout <<  "input: " << input << std::endl;
-	std::cout << "type: " << type << std::endl;
+	std::cout <<  "type: " << type << std::endl;
 	std::cout <<  "opcode: " << opcode << std::endl;
 	std::cout <<  "source1: " << source1 << std::endl;
 	std::cout <<  "source2: " << source2 << std::endl;

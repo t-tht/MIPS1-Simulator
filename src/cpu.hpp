@@ -5,22 +5,22 @@
 struct cpu_state_t{
 	uint32_t pc;
 	uint32_t npc;
-	uint32_t hi;
 	uint32_t lo;
+	uint32_t hi;
 	uint32_t reg[32];
 	
 	void debug(){
-		std::cout << "pc:\t" << pc << std::endl;
-		std::cout << "pc:\t" << pc << std::endl;
-		std::cout << "pc:\t" << pc << std::endl;
-		std::cout << "pc:\t" << pc << std::endl;
+		std::cout << std::hex << "pc:\t" << pc << std::endl;
+		std::cout << std::hex << "npc:\t" << npc << std::endl;
+		std::cout << std::hex << "lo:\t" << lo << std::endl;
+		std::cout << std::hex << "hi:\t" << hi << std::endl;
 		for(int i = 0; i < 32; i++) {
-			std::cout << "register "<< i << ":\t" << reg[i] <<std::endl;
+			std::cout << std::hex << "register "<< i << ":\t" << reg[i] <<std::endl;
 		}
 	}
 };
 
-void cpu_init();
+void cpu_init(cpu_state_t& current_state);
 
 err cpu_set_pc(cpu_state_t& current_state, uint32_t pc);
 err cpu_write_reg(cpu_state_t& current_state, uint32_t register_no, uint32_t value);

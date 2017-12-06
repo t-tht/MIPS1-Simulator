@@ -1,5 +1,5 @@
 /*
-		contains functions that execute the input instructions
+contains functions that execute the input instructions
 */
 #include<iostream>
 #include"inst_exe.hpp"
@@ -38,12 +38,12 @@ void exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 	
 	
 	switch(instruction.funct) {
-		case 0b100000:
-		//ADD
-		cpu_write_reg(current_state, dest, (s1+s2) );
+		case 0b100000://ADD
+		// cpu_write_reg(current_state, dest, (s1+s2) );
 		break;
-		case 0b100001:
-		//ADDU
+		
+		case 0b100001://ADDU
+		cpu_write_reg(current_state, dest, (s1+s2) );
 		break;
 		case 0b100100:
 		//AND
@@ -139,21 +139,21 @@ void exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 		//BEQ
 		break;
 		// case 0b0000000: //incorrect
-// 		//BGEZ
-// 		break;
-// 		case 0b0000000: //incorrect
-// 		//BGEZAL
-// 		break;
-// 		case 0b0000000: //incorrect
-// 		//BGTZ
-// 		break;
-// 		case 0b0000000: //incorrect
-// 		//BLEZ
-// 		break;
-// 		case 0b0000000: //incorrect
-// 		//BLTZ
-// 		break;
-// 		case 0b0000000: //incorrect
+		// 		//BGEZ
+		// 		break;
+		// 		case 0b0000000: //incorrect
+		// 		//BGEZAL
+		// 		break;
+		// 		case 0b0000000: //incorrect
+		// 		//BGTZ
+		// 		break;
+		// 		case 0b0000000: //incorrect
+		// 		//BLEZ
+		// 		break;
+		// 		case 0b0000000: //incorrect
+		// 		//BLTZ
+		// 		break;
+		// 		case 0b0000000: //incorrect
 		//BLTZAL
 		break;
 		case 0b000101:
@@ -172,8 +172,8 @@ void exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 		//LHU
 		break;
 		// case 0b0000000: //incorrect
-// 		//LUI
-// 		break;
+		// 		//LUI
+		// 		break;
 		case 0b100011:
 		//LW
 		break;

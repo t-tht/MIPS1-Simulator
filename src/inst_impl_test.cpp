@@ -3,13 +3,15 @@
 
 int main(){
 	cpu_state_t current_state;
-	bool yn;
+	cpu_init(current_state);
+	current_state.debug();
+	
 	do{
 		cpu_run(current_state);
-		cout << "again?\t(1/0):";
-		cin >> yn;		
+		cout<< "finished running 1 cycle" << endl;
+		
 	}
-	while(yn);
+	while(1);
 	
 	return 0;
 }

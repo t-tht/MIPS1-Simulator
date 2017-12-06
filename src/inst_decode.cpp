@@ -44,6 +44,10 @@ itype inst_type(instruction_t& instruction) {
 	else if(instruction.opcode != 0 || instruction.opcode != 3 || instruction.opcode != 4){
 		return I;
 	}
+	else{
+		std::cout<<"error identifying instruction type!" << std::endl;
+		return I;
+	}
 }
 
 void decode_rtype(instruction_t& instruction){			
