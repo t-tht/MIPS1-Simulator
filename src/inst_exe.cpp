@@ -3,8 +3,6 @@
 */
 #include<iostream>
 #include"inst_exe.hpp"
-#include"inst_decode.cpp"
-#include"cpu.hpp"
 
 using namespace std;
 
@@ -132,7 +130,7 @@ void exe_itype(instruction_t& instruction) {
 		//ADDI
 		break;
 		case 0b001001:
-		//ADDIU
+		//ADDIU				//clash with SLTIU
 		break;
 		case 0b001100:
 		//ANDI
@@ -140,22 +138,22 @@ void exe_itype(instruction_t& instruction) {
 		case 0b000100:
 		//BEQ
 		break;
-		case 0b0000000: //placeholder
-		//BGEZ
-		break;
-		case 0b0000000: //placeholder
-		//BGEZAL
-		break;
-		case 0b0000000: //placeholder
-		//BGTZ
-		break;
-		case 0b0000000: //placeholder
-		//BLEZ
-		break;
-		case 0b0000000: //placeholder
-		//BLTZ
-		break;
-		case 0b0000000: //placeholder
+		// case 0b0000000: //incorrect
+// 		//BGEZ
+// 		break;
+// 		case 0b0000000: //incorrect
+// 		//BGEZAL
+// 		break;
+// 		case 0b0000000: //incorrect
+// 		//BGTZ
+// 		break;
+// 		case 0b0000000: //incorrect
+// 		//BLEZ
+// 		break;
+// 		case 0b0000000: //incorrect
+// 		//BLTZ
+// 		break;
+// 		case 0b0000000: //incorrect
 		//BLTZAL
 		break;
 		case 0b000101:
@@ -173,9 +171,9 @@ void exe_itype(instruction_t& instruction) {
 		case 0b100101:
 		//LHU
 		break;
-		case 0b0000000: //placeholder
-		//LUI
-		break;
+		// case 0b0000000: //incorrect
+// 		//LUI
+// 		break;
 		case 0b100011:
 		//LW
 		break;
@@ -191,18 +189,18 @@ void exe_itype(instruction_t& instruction) {
 		case 0b101000:
 		//SB
 		break;
-		case 0b101001:
-		//SH
-		break;
+		// case 0b101001:
+		// //SH					//clash with sw
+		// break;
 		case 0b001010:
 		//SLTI
 		break;
-		case 0b001001:
-		//SLTIU
-		break;
-		case 0b101001:
-		//SW
-		break;
+		// case 0b001001:
+		// //SLTIU				//clash with ADDIU
+		// break;
+		// case 0b101001:
+		// //SW					//clash with sh
+		// break;
 		case 0b001110:
 		//XORI
 		break;		
