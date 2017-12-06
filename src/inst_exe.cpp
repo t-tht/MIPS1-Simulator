@@ -8,18 +8,18 @@ using namespace std;
 
 
 //select the type of the instruction
-err inst_exe(instruction_t& instruction) {
+err inst_exe(cpu_state_t& current_state, instruction_t& instruction) {
 	switch(instruction.type) {
 		case R:
-		exe_rtype(instruction);
+		exe_rtype(current_state, instruction);
 		break;
 		
 		case I:
-		exe_itype(instruction);
+		exe_itype(current_state, instruction);
 		break;
 		
 		case J:
-		exe_jtype(instruction);
+		exe_jtype(current_state, instruction);
 		break;
 	}
 	return success;
@@ -30,7 +30,7 @@ err inst_exe(instruction_t& instruction) {
 
 
 //select rtype instruction
-void exe_rtype(cpu_state_t current_state, instruction_t& instruction) {
+void exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 	uint32_t s1 = instruction.source1;
 	uint32_t s2 = instruction.source2;
 	uint32_t dest = instruction.dest;
@@ -40,7 +40,7 @@ void exe_rtype(cpu_state_t current_state, instruction_t& instruction) {
 	switch(instruction.funct) {
 		case 0b100000:
 		//ADD
-		cpu_write_reg(current_state, dest, s1 + s2);
+		cpu_write_reg(current_state, dest, (s1+s2) );
 		break;
 		case 0b100001:
 		//ADDU
@@ -124,7 +124,7 @@ void exe_rtype(cpu_state_t current_state, instruction_t& instruction) {
 }
 
 //select itype instruction
-void exe_itype(instruction_t& instruction) {
+void exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 	switch(instruction.opcode) {
 		case 0b001000:
 		//ADDI
@@ -212,7 +212,7 @@ void exe_itype(instruction_t& instruction) {
 }
 
 //select jtype instruction
-void exe_jtype(instruction_t& instruction) {
+void exe_jtype(cpu_state_t& current_state, instruction_t& instruction) {
 	switch(instruction.opcode) {
 		case 0b000010:
 		//J

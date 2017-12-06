@@ -1,16 +1,15 @@
 #include<iostream>
 #include"cpu.cpp"
-using namespace std;
 
 int main(){
-	
-			cpu_state_t cpustate;
+	cpu_state_t current_state;
+	bool yn;
 	do{
-		
-		cpu_run(cpustate);
-		
+		cpu_run(current_state);
+		cout << "again?\t(1/0):";
+		cin >> yn;		
 	}
-	while(1);
+	while(yn);
 	
 	return 0;
 }

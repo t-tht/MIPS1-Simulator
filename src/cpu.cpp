@@ -1,5 +1,4 @@
 #include<iostream>
-#include"cpu.hpp"
 #include"inst_decode.cpp"
 #include"inst_exe.cpp"
 
@@ -29,6 +28,7 @@ err cpu_write_reg(cpu_state_t& current_state, uint32_t register_no, uint32_t val
 	}
 	else{
 		current_state.reg[register_no] = value;
+		return success;
 	}
 }
 
@@ -42,7 +42,7 @@ err cpu_run(cpu_state_t& current_state){ // need to add pointer to memory
 	
 	//get instruction
 	//temp input
-	std::cout << "enter instruction:\t" << std::endl;
+	std::cout << "enter instruction:\t" <<;
 	std:cin >> current_inst.input;
 	
 	//decode
@@ -51,7 +51,7 @@ err cpu_run(cpu_state_t& current_state){ // need to add pointer to memory
 	}
 	//execute
 	if(error == success){
-		error = inst_exe(current_inst); //might have to add state?
+		error = inst_exe(current_state, current_inst); //might have to add state?
 		current_inst.debug();
 		current_state.debug();
 		

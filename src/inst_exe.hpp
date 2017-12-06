@@ -1,13 +1,11 @@
 #ifndef inst_exe_H
 #define inst_exe_H
+#include"mips.hpp"
 
-#include"inst_t.hpp"
-#include"error.hpp"
+err inst_exe(cpu_state_t& current_state, instruction_t& instruction);
 
-err inst_exe(instruction_t& instruction);
-
-void exe_rtype(instruction_t& current);
-void exe_itype(instruction_t& current);
-void exe_jtype(instruction_t& current);
+void exe_rtype(cpu_state_t& current_state, instruction_t& instruction);
+void exe_itype(cpu_state_t& current_state, instruction_t& instruction);
+void exe_jtype(cpu_state_t& current_state, instruction_t& instruction);
 
 #endif
