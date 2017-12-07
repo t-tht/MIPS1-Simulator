@@ -10,12 +10,12 @@ struct cpu_state_t{
 	uint32_t reg[32];
 	
 	void debug(){
-		std::cout << "+--------+" << std::endl;
-		std::cout <<"|"<< std::hex << "pc:\t" << pc <<"|"<< std::endl;
-		std::cout <<"|"<< std::hex << "npc:\t" << npc <<"|"<< std::endl;
-		std::cout <<"|"<< std::hex << "lo:\t" << lo <<"|"<< std::endl;
-		std::cout <<"|"<< std::hex << "hi:\t" << hi <<"|"<< std::endl;
-		std::cout << "+--------+" << std::endl;
+		std::cout << "+----------------+" << std::endl;
+		std::cout <<"|"<< std::hex << "pc:\t" << pc <<"\t|"<< std::endl;
+		std::cout <<"|"<< std::hex << "npc:\t" << npc <<"\t|"<< std::endl;
+		std::cout <<"|"<< std::hex << "lo:\t" << lo <<"\t|"<< std::endl;
+		std::cout <<"|"<< std::hex << "hi:\t" << hi <<"\t|"<< std::endl;
+		std::cout << "+----------------+" << std::endl;
 		std::cout << "+---------------------------------------+" << std::endl;
 		for(int i = 0; i < 32; i++) {
 			std::cout<<"|" << std::hex << "register "<< i << ":\t" << reg[i]<<"\t\t\t|" <<std::endl;

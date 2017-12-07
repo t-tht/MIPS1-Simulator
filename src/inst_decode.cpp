@@ -60,7 +60,7 @@ void decode_rtype(instruction_t& instruction){
 	instruction.dest    = (instruction.input >> 11) & 0x1F;
 	instruction.shift   = (instruction.input >> 6) & 0x1F;
 	instruction.funct   = (instruction.input) & 0x3F;
-	instruction.imm     = 0;
+	instruction.imm 	= 0;
 	instruction.mem     = 0;
 }
 
@@ -74,7 +74,7 @@ void decode_itype(instruction_t& instruction){
 	instruction.dest    = (instruction.input >> 16) & 0x1F;
 	instruction.shift   = 0;
 	instruction.funct   = 0;
-	instruction.imm     = (instruction.input) & 0xFFFF;
+	instruction.imm 	= (instruction.input) & 0xFFFF;
 	instruction.mem     = 0;
 }
 
@@ -88,6 +88,6 @@ void decode_jtype(instruction_t& instruction){
 	instruction.dest    = 0;
 	instruction.shift   = 0;
 	instruction.funct   = 0;
-	instruction.imm     = 0;
+	instruction.imm 	= 0;
 	instruction.mem     = (instruction.input) & 0x3FFFFFF;
 }
