@@ -40,7 +40,9 @@ err exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 	switch(instruction.funct) {
 		//-----------------------------------------------------------------
 		case 0b100000://ADD
-		// cpu_write_reg(current_state, dest, (s1+s2) );
+		//if(CHECK FOR OVERFLOW){
+		cpu_write_reg(current_state, dest, (s1+s2));
+		//}
 		break;
 		//-----------------------------------------------------------------
 		case 0b100001://ADDU
@@ -97,47 +99,57 @@ err exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 		cpu_write_reg(current_state, dest, (s1|s2) ); 
 		break;
 		//-----------------------------------------------------------------
-		case 0b000000:
-		//SLL
+		case 0b000000://SLL
+		instruction.name = "SLL";
+		cpu_write_reg(current_state, dest, (s2<<shift) );
 		break;
 		//-----------------------------------------------------------------
 		case 0b000100:
 		//SLLV
 		break;
 		//-----------------------------------------------------------------
-		case 0b101010:
-		//SLT
+		case 0b101010://SLT
+		instruction.name = "SLT";
+		if(int32_t(s1) < int32_t(s2)){
+			cpu_write_reg(current_state, dest, 1);
+		}else{
+			cpu_write_reg(current_state, dest, 0);
+		}
 		break;
 		//-----------------------------------------------------------------
 		case 0b101011://SLTU
 		instruction.name = "SLTU";
 		if(s1 < s2) {
-			cout << "s2 greater than s1" << endl;
 			cpu_write_reg(current_state, dest, 1);
 		}else{
-			cout << "s1 greater than s2" << endl;
 			cpu_write_reg(current_state,dest, 0);
 		}
 		break;
 		//-----------------------------------------------------------------
-		case 0b000011:
-		//SRA
+		case 0b000011://SRA
+		instruction.name = "SRA";
+		cpu_write_reg(current_state, dest, (((int32_t) s2) >> shift) );// the >> operator is arithmetic when s2 is signed, and logical when it is unsigned
 		break;
 		//-----------------------------------------------------------------
-		case 0b000111:
-		//SRAV
+		case 0b000111://SRAV
+		instruction.name = "SRAV";
+		cpu_write_reg(current_state, dest, (((int32_t) s2) >> s1) );
 		break;
 		//-----------------------------------------------------------------
-		case 0b000010:
-		//SRL
+		case 0b000010://SRL
+		instruction.name = "SRL";
+		cpu_write_reg(current_state, dest, (s2 >> shift));
 		break;
 		//-----------------------------------------------------------------
 		case 0b000110:
 		//SRLV
 		break;
 		//-----------------------------------------------------------------
-		case 0b100010:
-		//SUB
+		case 0b100010://SUB
+		instruction.name = "SUB";
+		if(1){
+			cpu_write_reg(current_state, dest, (s2 - s1));
+		}
 		break;
 		//-----------------------------------------------------------------
 		case 0b100011://SUBU
@@ -162,18 +174,25 @@ err exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 
 //select itype instruction
 err exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
+	uint32_t s1 = instruction.source1;
+	uint32_t dest = instruction.dest;
+	uint32_t uimm = instruction.imm;
+	int32_t simm = int32_t(instruction.imm);
+
 	switch(instruction.opcode) {
 		//-----------------------------------------------------------------
 		case 0b001000:
 		//ADDI
 		break;
 		//-----------------------------------------------------------------
-		case 0b001001:
-		//ADDIU				//clash with SLTIU
+		case 0b001001://ADDIU CLASH WITH SLTIU
+		instruction.name = "ADDIU";
+		cpu_write_reg(current_state, dest, (s1 + uimm));
 		break;
 		//-----------------------------------------------------------------
-		case 0b001100:
-		//ANDI
+		case 0b001100://ANDI
+		instruction.name = "ANDI";
+		cpu_write_reg(current_state, dest, (s1 & uimm));
 		break;
 		//-----------------------------------------------------------------
 		case 0b000100:
@@ -224,12 +243,13 @@ err exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 		//LHU
 		break;
 		//-----------------------------------------------------------------
-		// case 0b0000000: //incorrect
-		// 		//LUI
-		// 		break;
+		case 0b001111: //LUI
+		instruction.name = "LUI";
+		cpu_write_reg(current_state, dest, (uimm<<16));
+		break;
 		//-----------------------------------------------------------------
-		case 0b100011:
-		//LW
+		case 0b100011: //LW
+		instruction.name = "LW";
 		break;
 		//-----------------------------------------------------------------
 		case 0b100010:
@@ -240,8 +260,9 @@ err exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 		//LWR
 		break;
 		//-----------------------------------------------------------------
-		case 0b001101:
-		//ORI
+		case 0b001101://ORI
+		instruction.name = "ORI";
+		cpu_write_reg(current_state, dest, (s1|uimm));
 		break;
 		//-----------------------------------------------------------------
 		case 0b101000:
@@ -264,8 +285,9 @@ err exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 		// //SW					//clash with sh
 		// break;
 		//-----------------------------------------------------------------
-		case 0b001110:
-		//XORI
+		case 0b001110://XORI
+		instruction.name = "XORI";
+		cpu_write_reg(current_state, dest, (s1 ^ uimm));
 		break;		
 		//-----------------------------------------------------------------
 		
@@ -280,7 +302,7 @@ err exe_jtype(cpu_state_t& current_state, instruction_t& instruction) {
 	switch(instruction.opcode) {
 		//-----------------------------------------------------------------
 		case 0b000010:
-		//J
+		//JƒXORI
 		break;
 		//-----------------------------------------------------------------
 		case 0b000011:
@@ -293,6 +315,7 @@ err exe_jtype(cpu_state_t& current_state, instruction_t& instruction) {
 		break;
 	}
 }
+
 
 
 

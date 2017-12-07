@@ -4,7 +4,6 @@
 int main(){
 	cpu_state_t current_state;
 	cpu_init(current_state);
-	current_state.debug();
 	
 	do{
 		cpu_run(current_state);
