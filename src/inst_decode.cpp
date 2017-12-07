@@ -46,7 +46,6 @@ itype inst_type(instruction_t& instruction) {
 	}
 	else{
 		std::cout<<"error identifying instruction type!" << std::endl;
-		return I;
 	}
 }
 

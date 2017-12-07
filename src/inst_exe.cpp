@@ -66,24 +66,33 @@ err exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 		break;
 		//-----------------------------------------------------------------
 		case 0b001000://JR
+		instruction.name = "JR";
 		current_state.pc = current_state.npc;
 		current_state.npc = s1;
 		return excpt_break;		//exception so that pc does not increment
 		//-----------------------------------------------------------------
-		case 0b010000:
-		//MFHI
+		case 0b010000://MFHI
+		instruction.name = "MFHI";
+		cpu_write_reg(current_state, dest, current_state.hi);
+		return success;
 		break;
 		//-----------------------------------------------------------------
-		case 0b010010:
-		//MFLO
+		case 0b010010://MFLO
+		instruction.name = "MFLO";
+		cpu_write_reg(current_state, dest, current_state.lo);
+		return success;
 		break;
 		//-----------------------------------------------------------------
-		case 0b010001:
-		//MTHI
+		case 0b010001://MTHI
+		instruction.name = "MFHI";
+		current_state.hi = s1;
+		return success;
 		break;
 		//-----------------------------------------------------------------
-		case 0b010011:
-		//MTLO
+		case 0b010011://MTLO
+		instruction.name = "MTLO";
+		current_state.lo = s1;
+		return success;
 		break;
 		//-----------------------------------------------------------------
 		case 0b011000:
@@ -104,8 +113,10 @@ err exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 		cpu_write_reg(current_state, dest, (s2<<shift) );
 		break;
 		//-----------------------------------------------------------------
-		case 0b000100:
-		//SLLV
+		case 0b000100://SLLV
+		instruction.name = "SLLV";
+		cpu_write_reg(current_state, dest, (s2 << s1));
+		return success;
 		break;
 		//-----------------------------------------------------------------
 		case 0b101010://SLT
@@ -141,8 +152,10 @@ err exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 		cpu_write_reg(current_state, dest, (s2 >> shift));
 		break;
 		//-----------------------------------------------------------------
-		case 0b000110:
-		//SRLV
+		case 0b000110://SRLV
+		instruction.name = "SRLV";
+		cpu_write_reg(current_state, dest, (s2 >> s1));
+		return success;
 		break;
 		//-----------------------------------------------------------------
 		case 0b100010://SUB
@@ -176,7 +189,7 @@ err exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 err exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 	uint32_t s1 = instruction.source1;
 	uint32_t dest = instruction.dest;
-	uint32_t uimm = instruction.imm;
+	uint32_t imm = instruction.imm;
 	int32_t simm = int32_t(instruction.imm);
 
 	switch(instruction.opcode) {
@@ -185,46 +198,79 @@ err exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 		//ADDI
 		break;
 		//-----------------------------------------------------------------
-		case 0b001001://ADDIU CLASH WITH SLTIU
+		case 0b001001://ADDIU
 		instruction.name = "ADDIU";
-		cpu_write_reg(current_state, dest, (s1 + uimm));
+		cpu_write_reg(current_state, dest, (s1 + imm));
+		return success;
 		break;
 		//-----------------------------------------------------------------
 		case 0b001100://ANDI
 		instruction.name = "ANDI";
-		cpu_write_reg(current_state, dest, (s1 & uimm));
+		cpu_write_reg(current_state, dest, (s1 & imm));
+		return success;
 		break;
 		//-----------------------------------------------------------------
-		case 0b000100:
-		//BEQ
+		case 0b000100://BEQ
+		instruction.name = "BEQ";
+		std::cout << "beq" << std::endl;
+		if(s1 == dest) {
+			cpu_set_pc(current_state, (imm<<2) );
+			return excpt_break;
+		}else{
+			return success;
+		}
 		break;
 		//-----------------------------------------------------------------
-		// case 0b0000000: //incorrect
-		// 		//BGEZ
-		// 		break;
+		case 0b0000000: //BGEZ
+		instruction.name = "BGEZ";
+		break;
 		//-----------------------------------------------------------------
 		// 		case 0b0000000: //incorrect
 		// 		//BGEZAL
 		// 		break;
 		//-----------------------------------------------------------------
-		// 		case 0b0000000: //incorrect
-		// 		//BGTZ
-		// 		break;
+		case 0b000111: //BGTZ
+		instruction.name = "BGTZ";
+		if(s1 > 0) {
+			cpu_set_pc(current_state, (imm<<2));
+			return excpt_break;
+		}else{
+			return success;
+		}
+		break;
 		//-----------------------------------------------------------------
-		// 		case 0b0000000: //incorrect
-		// 		//BLEZ
-		// 		break;
+		case 0b000110: //BLEZ
+		instruction.name = "BLEZ";
+		if(s1 <= 0) {
+			cpu_set_pc(current_state, (imm<<2));
+			return excpt_break;
+		}else{
+			return success;
+		}
+		break;
 		//-----------------------------------------------------------------
-		// 		case 0b0000000: //incorrect
-		// 		//BLTZ
+		// case 0b0000000: //BLTZ
+		// 		instruction.name = "BLTZ";
+		// 		if(s1 < 0) {
+		// 			cpu_set_pc(current_state, (imm<<2));
+		// 			return excpt_break;
+		// 		}else{
+		// 			return success;
+		// 		}
 		// 		break;
 		//-----------------------------------------------------------------
 		// 		case 0b0000000: //incorrect
 		//BLTZAL
 		break;
 		//-----------------------------------------------------------------
-		case 0b000101:
-		//BNE
+		case 0b000101://BNE
+		instruction.name = "BNE";
+		if(s1 != dest) {
+			cpu_set_pc(current_state, (imm<<2));
+			return excpt_break;
+		}else{
+			return success;
+		}
 		break;
 		//-----------------------------------------------------------------
 		case 0b100000:
@@ -245,7 +291,7 @@ err exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 		//-----------------------------------------------------------------
 		case 0b001111: //LUI
 		instruction.name = "LUI";
-		cpu_write_reg(current_state, dest, (uimm<<16));
+		cpu_write_reg(current_state, dest, (imm<<16));
 		break;
 		//-----------------------------------------------------------------
 		case 0b100011: //LW
@@ -262,7 +308,7 @@ err exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 		//-----------------------------------------------------------------
 		case 0b001101://ORI
 		instruction.name = "ORI";
-		cpu_write_reg(current_state, dest, (s1|uimm));
+		cpu_write_reg(current_state, dest, (s1|imm));
 		break;
 		//-----------------------------------------------------------------
 		case 0b101000:
@@ -273,13 +319,25 @@ err exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 		// //SH					//clash with sw
 		// break;
 		//-----------------------------------------------------------------
-		case 0b001010:
-		//SLTI
+		case 0b001010://SLTI
+		instruction.name = "SLTI";
+		if(s1 < simm) {
+			cpu_write_reg(current_state, dest, 1);
+		}else{
+			cpu_write_reg(current_state, dest, 0);
+		}
+		return success;
 		break;
 		//-----------------------------------------------------------------
-		// case 0b001001:
-		// //SLTIU				//clash with ADDIU
-		// break;
+		case 0b001011://SLTIU
+		instruction.name = "SLTIU";
+		if(s1 < imm) {
+			cpu_write_reg(current_state, dest, 1);
+		}else{
+			cpu_write_reg(current_state, dest, 0);
+		}
+		return success;
+		break;
 		//-----------------------------------------------------------------
 		// case 0b101001:
 		// //SW					//clash with sh
@@ -287,7 +345,7 @@ err exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 		//-----------------------------------------------------------------
 		case 0b001110://XORI
 		instruction.name = "XORI";
-		cpu_write_reg(current_state, dest, (s1 ^ uimm));
+		cpu_write_reg(current_state, dest, (s1 ^ imm));
 		break;		
 		//-----------------------------------------------------------------
 		
@@ -299,10 +357,13 @@ err exe_itype(cpu_state_t& current_state, instruction_t& instruction) {
 
 //select jtype instruction
 err exe_jtype(cpu_state_t& current_state, instruction_t& instruction) {
+	uint32_t mem = instruction.mem;
 	switch(instruction.opcode) {
 		//-----------------------------------------------------------------
-		case 0b000010:
-		//JƒXORI
+		case 0b000010://J
+		instruction.name = "J";
+		current_state.pc = current_state.npc;
+		current_state.npc = (current_state.pc & 0xf0000000) | (mem << 2);
 		break;
 		//-----------------------------------------------------------------
 		case 0b000011:
