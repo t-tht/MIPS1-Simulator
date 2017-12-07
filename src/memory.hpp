@@ -10,7 +10,7 @@
 //
 // memarray = memptr;
 
-err mem_init(uint8_t* mem);
+err mem_print(unsigned char ROM[]);
 err mem_read(uint32_t index, uint8_t value);
 err mem_write(uint32_t index, uint8_t value);
 err mem_clear(uint32_t index);

@@ -6,9 +6,10 @@ struct mem_t{
 };
 
 
-err mem_init(uint8_t* memptr) {
-	for(int i = 0; i < 100; i++){
-		(memptr)[i];
+err mem_print(unsigned char ROM[],size_t bytes) {
+	for(int i = 0; i < bytes; i++){
+		printf (" 0x%02x", ROM[i]);
+    putchar ('\n');
 	}
 	return success;
 }
