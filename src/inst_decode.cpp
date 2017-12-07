@@ -38,14 +38,11 @@ itype inst_type(instruction_t& instruction) {
 	if(instruction.opcode == 0){
 		return R;
 	}
-	else if(instruction.opcode == 3 || instruction.opcode == 4){
+	else if(instruction.opcode == 3 || instruction.opcode == 2 || instruction.opcode == 26){
 		return J;
 	}
-	else if(instruction.opcode != 0 || instruction.opcode != 3 || instruction.opcode != 4){
+	else {
 		return I;
-	}
-	else{
-		std::cout<<"error identifying instruction type!" << std::endl;
 	}
 }
 

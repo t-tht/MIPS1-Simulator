@@ -40,6 +40,9 @@ err cpu_run(cpu_state_t& current_state){ // need to add pointer to memory
 	instruction_t current_inst;
 	err error = success;
 	
+	current_state.lo = 0x3;
+	current_state.hi = 0x7;
+	
 	//get instruction
 	//temp input
 	std::cout << "enter instruction:\t";
@@ -55,14 +58,16 @@ err cpu_run(cpu_state_t& current_state){ // need to add pointer to memory
 	if(error == success){
 		std::cout << "executing..................................................." << std::endl;
 		error = inst_exe(current_state, current_inst); //might have to add state?
+		//DEBUG
 		current_inst.debug();
 		current_state.debug();
+		//DEBUG
 		
 	}
 	//pc increment
 	if(error == success ){
 		std::cout << "incrementing pc..........................................." << std::endl;
-		error = cpu_set_pc(current_state, current_state.pc + 4);
+		error = cpu_set_pc(current_state, current_state.pc + 4);		
 	}
 	
 	return error;

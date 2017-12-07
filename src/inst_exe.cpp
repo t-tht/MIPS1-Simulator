@@ -84,7 +84,7 @@ err exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 		break;
 		//-----------------------------------------------------------------
 		case 0b010001://MTHI
-		instruction.name = "MFHI";
+		instruction.name = "MTHI";
 		current_state.hi = s1;
 		return success;
 		break;
