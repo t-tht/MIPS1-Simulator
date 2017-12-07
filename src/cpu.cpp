@@ -24,7 +24,7 @@ err cpu_set_pc(cpu_state_t& current_state, uint32_t pc){
 //writes a register to a value
 err cpu_write_reg(cpu_state_t& current_state, uint32_t register_no, uint32_t value){
 	if(register_no == 0 || register_no > 31){ //check if its writing to register zero or >32
-		std::cout << "register no available" << std::endl;
+		std::cout << "register not available" << std::endl;
 	}
 	else{
 		current_state.reg[register_no] = value;
@@ -60,7 +60,7 @@ err cpu_run(cpu_state_t& current_state){ // need to add pointer to memory
 		
 	}
 	//pc increment
-	if(error == success){
+	if(error == success ){
 		std::cout << "incrementing pc..........................................." << std::endl;
 		error = cpu_set_pc(current_state, current_state.pc + 4);
 	}
