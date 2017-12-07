@@ -40,9 +40,6 @@ err cpu_run(cpu_state_t& current_state){ // need to add pointer to memory
 	instruction_t current_inst;
 	err error = success;
 	
-	current_state.lo = 0x3;
-	current_state.hi = 0x7;
-	
 	//get instruction
 	//temp input
 	std::cout << "enter instruction:\t";

@@ -53,16 +53,26 @@ err exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 		cpu_write_reg(current_state, dest, (s1&s2) );
 		break;
 		//-----------------------------------------------------------------
-		case 0b011010:
-		//DIV
+		case 0b011010://DIV
+		instruction.name = "DIV";
+		current_state.lo = ( (int32_t)s1 / (int32_t)s2 );
+		current_state.hi = ( (int32_t)s1 % (int32_t)s2 );
+		return success;
 		break;
 		//-----------------------------------------------------------------
-		case 0b011011:
-		//DIVU
+		case 0b011011://DIVU
+		instruction.name = "DIVU";
+		current_state.lo = ( s1 / s2 );
+		current_state.hi = ( s1 % s2 );
+		return success;
 		break;
 		//-----------------------------------------------------------------
-		case 0b001001:
-		//JALR
+		case 0b001001://JALR
+		instruction.name = "JALR";
+		cpu_write_reg(current_state, 31, current_state.npc + 4);
+		current_state.pc = current_state.npc;
+		current_state.npc = s1;
+		return excpt_break;
 		break;
 		//-----------------------------------------------------------------
 		case 0b001000://JR
@@ -95,12 +105,21 @@ err exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 		return success;
 		break;
 		//-----------------------------------------------------------------
-		case 0b011000:
-		//MULT
+		case 0b011000://MULT
+		instruction.name = "MULT";
+		int64_t temp;
+		temp = ( ((int64_t)s1)*((int64_t)s2) );
+		current_state.lo = (int32_t)(temp&0xffffffff);
+		current_state.hi = (int32_t)((temp&0xffffffff00000000)>>32);
+		return success;
 		break;
 		//-----------------------------------------------------------------
-		case 0b011001:
-		//MULTU
+		case 0b011001://MULTU
+		instruction.name = "MULTU";
+		uint64_t tempu;
+		temp = ( ((uint64_t)s1)*((uint64_t)s2) );
+		current_state.lo = (int32_t)(temp&0xffffffff);
+		current_state.hi = (int32_t)((temp&0xffffffff00000000)>>32);
 		break;
 		//-----------------------------------------------------------------
 		case 0b100101://OR
@@ -176,10 +195,10 @@ err exe_rtype(cpu_state_t& current_state, instruction_t& instruction) {
 		break;
 		//-----------------------------------------------------------------
 		
-		default:
-		std::cout<< "function code not found" << std::endl;
-		return err_notimpl;
-		break;
+		// default:
+		// 		std::cout<< "function code not found" << std::endl;
+		// 		return err_notimpl;
+		// 		break;
 		
 	};
 	return err_unexpct;
@@ -364,10 +383,15 @@ err exe_jtype(cpu_state_t& current_state, instruction_t& instruction) {
 		instruction.name = "J";
 		current_state.pc = current_state.npc;
 		current_state.npc = (current_state.pc & 0xf0000000) | (mem << 2);
+		return excpt_break;
 		break;
 		//-----------------------------------------------------------------
-		case 0b000011:
-		//JAL
+		case 0b000011://JAL
+		instruction.name = "JAL";
+		cpu_write_reg(current_state, 31, current_state.npc + 4);
+		current_state.pc = current_state.npc;
+		current_state.npc = (current_state.pc & 0xf0000000) | (mem << 2);
+		return excpt_break;
 		break;
 		//-----------------------------------------------------------------
 		
