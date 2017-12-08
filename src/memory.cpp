@@ -15,11 +15,11 @@ err mem_print(unsigned char ROM[],size_t bytes) {
 }
 
 uint32_t mem_instruction(unsigned char ROM[], uint32_t pc) {
-	return	uint32_t x = (ROM[pc]<<24)|(ROM[pc+1]<<16)|(ROM[pc+2]<<8)|(ROM[pc+3]);
+	return	(ROM[pc]<<24)|(ROM[pc+1]<<16)|(ROM[pc+2]<<8)|(ROM[pc+3]);
 	
 }
 
-err mem_read(unsigned char ROM[], uint32_t index, uint8_t value){
+err mem_read(unsigned char ROM[], uint32_t index, uint8_t& value){
 	value=ROM[index];
 	return success;
 }
