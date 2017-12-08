@@ -1,6 +1,6 @@
 #include<iostream>
-#include"inst_decode.cpp"
-#include"inst_exe.cpp"
+#include"inst_decode.hpp"
+#include"inst_exe.hpp"
 
 //create a cpu with inital conditions
 void cpu_init(cpu_state_t& current_state){
