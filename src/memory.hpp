@@ -1,6 +1,6 @@
 #ifndef memory_H
 #define memory_H
-#include"error.hpp"
+#include"global.hpp"
 #include"stdlib.h"
 #include <stdint.h>
 #include <stdio.h>

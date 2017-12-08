@@ -1,6 +1,7 @@
 #ifndef inst_H
 #define inst_H
 #include<string>
+#include "global.hpp"
 
 enum itype {R, I, J};
 

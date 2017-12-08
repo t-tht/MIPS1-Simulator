@@ -1,6 +1,6 @@
 #ifndef inst_exe_H
 #define inst_exe_H
-#include"mips.hpp"
+#include"global.hpp"
 
 err inst_exe(cpu_state_t& current_state, instruction_t& instruction);
 

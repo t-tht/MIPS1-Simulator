@@ -1,7 +1,4 @@
-#include "memory.hpp"
-#include "mips.hpp"
-#include "inst_decode.hpp"
-#include "inst_exe.hpp"
+#include "global.hpp"
 
 
 #include <stdio.h>

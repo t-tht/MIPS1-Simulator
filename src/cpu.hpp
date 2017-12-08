@@ -1,6 +1,6 @@
 #ifndef cpu_H
 #define cpu_H
-#include"mips.hpp"
+#include"global.hpp"
 #include <iostream> 
 #include <stdint.h>
 

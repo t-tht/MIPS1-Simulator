@@ -1,6 +1,7 @@
 #ifndef error_H
 #define error_H
 
+#include "global.hpp"
 //error structure for functions to return error codes
 
 enum err{
