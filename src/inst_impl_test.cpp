@@ -7,7 +7,7 @@ int main(){
 	
 	do{
 		cpu_run(current_state);
-		cout<< "finished running 1 cycle" << endl;
+		std::cout<< "finished running 1 cycle" << std::endl;
 		
 	}
 	while(1);

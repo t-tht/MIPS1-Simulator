@@ -1,6 +1,8 @@
 #include<iostream>
 #include"inst_decode.hpp"
 #include"inst_exe.hpp"
+#include "cpu.hpp"
+
 
 //create a cpu with inital conditions
 void cpu_init(cpu_state_t& current_state){
@@ -43,7 +45,7 @@ err cpu_run(cpu_state_t& current_state){ // need to add pointer to memory
 	//get instruction
 	//temp input
 	std::cout << "enter instruction:\t";
-	std:cin >> std::hex >> current_inst.input;
+	std::cin >> std::hex >> current_inst.input;
 	
 	//decode
 	
