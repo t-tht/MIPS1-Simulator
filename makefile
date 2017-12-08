@@ -1,3 +1,4 @@
-bin/simulator : src/simulator.cpp
-	g++ src/simulator.cpp -o bin/simulator
+bin/simulator : src/*.cpp
+	g++ src/*.cpp -o bin/simulator
+	
 
