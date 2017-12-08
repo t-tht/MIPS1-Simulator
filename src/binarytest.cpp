@@ -1,13 +1,12 @@
 #include <stdio.h>
+#include <stdint.h>
 #include <iostream>
-#include memory.hpp
+#include "memory.hpp" 
 #define BUFSZ 1000000
 
+using namespace std;
+
 int main (int argc, char **argv) {
-
-size = file.tellg();
-    memblock = new char [size];
-
 
     unsigned char ROM[BUFSZ] = {0};
     size_t bytes = 0, i, readsz = sizeof ROM;
@@ -24,7 +23,8 @@ size = file.tellg();
             printf (" 0x%02x", ROM[i]);
         putchar ('\n');
     }
-	mem_print(ROM[],bytes)
+
+	//mem_print(ROM,bytes);
 	//for (i = 0; i < bytes; i++) /* output final partial buf */
       // printf (" 0x%02x", ROM[i]);
     //putchar ('\n');
