@@ -1,14 +1,19 @@
+#include "memory.hpp"
+#include "mips.hpp"
+#include "inst_decode.hpp"
+#include "inst_exe.hpp"
+
+
 #include <stdio.h>
 #include <stdint.h>
-#include <iostream>
-#include "memory.hpp" 
-#define BUFSZ 1000000
+#include <iostream> 
+#define SIZE 1000000
 
 using namespace std;
 
 int main (int argc, char **argv) {
 
-    unsigned char ROM[BUFSZ] = {0};
+    unsigned char ROM[SIZE] = {0};
     size_t bytes = 0, i, readsz = sizeof ROM;
     FILE *fp = argc > 1 ? fopen (argv[1], "rb") : stdin;
 
@@ -17,7 +22,7 @@ int main (int argc, char **argv) {
         return 1;
     }
 
-    /* read/output BUFSZ bytes at a time */
+    /* read/output SIZE bytes at a time */
     while ((bytes = fread (ROM, sizeof *ROM, readsz, fp)) == readsz) {
         for (i = 0; i < readsz; i++)
             printf (" 0x%02x", ROM[i]);

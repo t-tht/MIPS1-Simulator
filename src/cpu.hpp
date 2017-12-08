@@ -1,6 +1,8 @@
 #ifndef cpu_H
 #define cpu_H
 #include"mips.hpp"
+#include <iostream> 
+#include <stdint.h>
 
 struct cpu_state_t{
 	uint32_t pc;
